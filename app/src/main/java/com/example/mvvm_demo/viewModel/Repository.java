@@ -9,16 +9,21 @@ import com.example.mvvm_demo.dao.DatabaseManager;
 import com.example.mvvm_demo.dao.OrdersEntity;
 import com.example.mvvm_demo.dao.OrdersWithUsersEntity;
 import com.example.mvvm_demo.dao.UserEntity;
+import com.example.mvvm_demo.response.PoetryResponse;
+import com.example.mvvm_demo.response.PoetryResponseInt;
+import com.example.mvvm_demo.response.RandomPoem;
 
 import java.util.List;
 
 public class Repository {
     private DatabaseManager databaseManager;
     private DaoInt dao;
+    private PoetryResponseInt poetryResponse;
 
     public Repository(Context context) {
         databaseManager = DatabaseManager.getInstance(context);
         dao = databaseManager.getHseDao();
+        poetryResponse = new PoetryResponse();
     }
 
     public LiveData<List<UserEntity>> getAllUsers() {
@@ -32,5 +37,9 @@ public class Repository {
     public LiveData<List<OrdersWithUsersEntity>> getAllOrdersWithUsers(){
         return dao.getAllOrdersWithUsers();
     };
+
+    public LiveData<List<RandomPoem>> getPoems(){
+        return poetryResponse.getPoems();
+    }
 
 }

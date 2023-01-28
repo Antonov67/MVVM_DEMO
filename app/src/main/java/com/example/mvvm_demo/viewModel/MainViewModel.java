@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.example.mvvm_demo.dao.OrdersEntity;
 import com.example.mvvm_demo.dao.OrdersWithUsersEntity;
 import com.example.mvvm_demo.dao.UserEntity;
+import com.example.mvvm_demo.response.RandomPoem;
 
 import java.util.List;
 
@@ -35,4 +36,8 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<List<OrdersWithUsersEntity>> getAllOrdersWithUsers(){
         return repository.getAllOrdersWithUsers();
     };
+
+    public LiveData<List<RandomPoem>> getPoems(){
+        return repository.getPoems();
+    }
 }

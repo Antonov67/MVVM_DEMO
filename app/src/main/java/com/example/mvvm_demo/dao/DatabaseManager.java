@@ -62,27 +62,34 @@ public class DatabaseManager {
         user.name = "Степан";
         users.add(user);
 
+        user = new UserEntity();
+        user.name = "Петр";
+        users.add(user);
+
         DatabaseManager.getInstance(context).getHseDao().insertUser(users);
 
         List<OrdersEntity> orders = new ArrayList<>();
 
         OrdersEntity ordersEntity = new OrdersEntity();
-        ordersEntity.date = dateFromString("2023-01-28");
+        ordersEntity.date = dateFromString("2023-01-01 10:00");
         ordersEntity.orderInfo = "информация о первом заказе";
         ordersEntity.userId = 1;
+        orders.add(ordersEntity);
 
         ordersEntity = new OrdersEntity();
-        ordersEntity.date = dateFromString("2023-01-29");
+        ordersEntity.date = dateFromString("2023-01-11 10:00");
         ordersEntity.orderInfo = "информация о втором заказе";
         ordersEntity.userId = 1;
+        orders.add(ordersEntity);
 
         ordersEntity = new OrdersEntity();
-        ordersEntity.date = dateFromString("2023-02-20");
+        ordersEntity.date = dateFromString("2023-02-20 11:00");
         ordersEntity.orderInfo = "информация о первом заказе второго юзера";
         ordersEntity.userId = 2;
+        orders.add(ordersEntity);
 
         ordersEntity = new OrdersEntity();
-        ordersEntity.date = dateFromString("2020-02-20");
+        ordersEntity.date = dateFromString("2020-02-25 10:00");
         ordersEntity.orderInfo = "информация о первом заказе третьего юзера";
         ordersEntity.userId = 3;
 
