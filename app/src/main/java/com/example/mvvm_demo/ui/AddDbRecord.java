@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.mvvm_demo.R;
 import com.example.mvvm_demo.dao.OrdersEntity;
@@ -18,6 +21,7 @@ import com.example.mvvm_demo.viewModel.MainViewModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -28,10 +32,13 @@ public class AddDbRecord extends AppCompatActivity {
 
     private static final String TAG = "mvvm";
 
-    private EditText userName, pswrd, orderInfo, date;
+    private EditText userName, pswrd, orderInfo;
     private Button addButton;
+    private TextView dateField;
 
     private MainViewModel mainViewModel;
+
+    final Calendar myCalendar= Calendar.getInstance();
 
 
     @Override
@@ -42,11 +49,39 @@ public class AddDbRecord extends AppCompatActivity {
         userName = findViewById(R.id.user_name_field);
         pswrd = findViewById(R.id.user_pswrd_field);
         orderInfo = findViewById(R.id.order_info);
-        date = findViewById(R.id.date);
+        dateField = findViewById(R.id.date);
 
         addButton = findViewById(R.id.add_button);
 
         mainViewModel = new ViewModelProvider( this).get(MainViewModel.class);
+
+        DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH,month);
+                myCalendar.set(Calendar.DAY_OF_MONTH,day);
+                updateLabel();
+            }
+
+            private void updateLabel() {
+                String myFormat="yyyy-MM-dd";
+                SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.getDefault());
+                dateField.setText(dateFormat.format(myCalendar.getTime()));
+            }
+        };
+
+        dateField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(AddDbRecord.this,date,
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH))
+                        .show();
+            }
+        });
+
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +101,7 @@ public class AddDbRecord extends AppCompatActivity {
                         OrdersEntity ordersEntity = new OrdersEntity();
                         ordersEntity.userId = (int) userId;
                         ordersEntity.orderInfo = orderInfo.getText().toString();
-                        ordersEntity.date = dateFromString(date.getText().toString());
+                        ordersEntity.date = dateFromString(dateField.getText().toString());
 
                         List<OrdersEntity> ordersEntityList = new ArrayList<>();
                         ordersEntityList.add(ordersEntity);
