@@ -37,6 +37,11 @@ public class MainViewModel extends AndroidViewModel {
         return repository.getAllOrdersWithUsers();
     };
 
+    //вставка одного Юзера с возвратом  его id для последующей вставки данных по этому id
+    public LiveData<Long> insertOneUser(UserEntity data){
+        return repository.insertOneUser(data);
+    };
+
     public LiveData<List<RandomPoem>> getPoems(){
         return repository.getPoems();
     }

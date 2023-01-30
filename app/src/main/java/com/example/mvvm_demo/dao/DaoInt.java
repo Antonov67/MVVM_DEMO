@@ -25,6 +25,10 @@ public interface DaoInt {
     @Insert
     void insertUser(List<UserEntity> data);
 
+    //вставка одного Юзера с возвратом  его id для последующей вставки данных по этому id
+    @Insert
+    LiveData<Long> insertOneUser(UserEntity data);
+
     @Insert
     void insertOrder(List<OrdersEntity> data);
 
