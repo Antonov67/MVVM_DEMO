@@ -3,6 +3,7 @@ package com.example.mvvm_demo.viewModel;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Insert;
 
 import com.example.mvvm_demo.dao.DaoInt;
@@ -39,10 +40,18 @@ public class Repository {
         return dao.getAllOrdersWithUsers();
     };
 
+    public void insertUser(List<UserEntity> data){
+        dao.insertUser(data);
+    }
+
+    public void insertOrder(List<OrdersEntity> data){
+        dao.insertOrder(data);
+    }
+
     //вставка одного Юзера с возвратом  его id для последующей вставки данных по этому id
-    public LiveData<Long> insertOneUser(UserEntity data){
+    public long insertOneUser(UserEntity data){
         return dao.insertOneUser(data);
-    };
+    }
 
     public LiveData<List<RandomPoem>> getPoems(){
         return poetryResponse.getPoems();

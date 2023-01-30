@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -27,7 +29,7 @@ public interface DaoInt {
 
     //вставка одного Юзера с возвратом  его id для последующей вставки данных по этому id
     @Insert
-    LiveData<Long> insertOneUser(UserEntity data);
+    long insertOneUser(UserEntity data);
 
     @Insert
     void insertOrder(List<OrdersEntity> data);

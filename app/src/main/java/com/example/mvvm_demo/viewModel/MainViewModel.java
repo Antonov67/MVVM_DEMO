@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.mvvm_demo.dao.OrdersEntity;
 import com.example.mvvm_demo.dao.OrdersWithUsersEntity;
@@ -35,12 +36,20 @@ public class MainViewModel extends AndroidViewModel {
 
     public LiveData<List<OrdersWithUsersEntity>> getAllOrdersWithUsers(){
         return repository.getAllOrdersWithUsers();
-    };
+    }
+
+    public void insertUser(List<UserEntity> data){
+        repository.insertUser(data);
+    }
+
+    public void insertOrder(List<OrdersEntity> data){
+        repository.insertOrder(data);
+    }
 
     //вставка одного Юзера с возвратом  его id для последующей вставки данных по этому id
-    public LiveData<Long> insertOneUser(UserEntity data){
+    public long insertOneUser(UserEntity data){
         return repository.insertOneUser(data);
-    };
+    }
 
     public LiveData<List<RandomPoem>> getPoems(){
         return repository.getPoems();

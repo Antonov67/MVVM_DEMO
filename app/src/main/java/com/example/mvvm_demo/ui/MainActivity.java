@@ -4,24 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.mvvm_demo.dao.OrdersEntity;
 import com.example.mvvm_demo.dao.OrdersWithUsersEntity;
 import com.example.mvvm_demo.dao.UserEntity;
-import com.example.mvvm_demo.response.PoetryDBService;
 import com.example.mvvm_demo.response.RandomPoem;
-import com.example.mvvm_demo.response.RetrofitConnection;
 import com.example.mvvm_demo.viewModel.MainViewModel;
 import com.example.mvvm_demo.R;
 
 import java.util.List;
-
-import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel mainViewModel;
     private TextView resulText;
 
-    private Button dbButton, responseButton;
+    private Button dbButton, responseButton, addNewRecordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         dbButton = findViewById(R.id.button);
         responseButton = findViewById(R.id.response_button);
+        addNewRecordButton = findViewById(R.id.add_new_record_button);
         resulText = findViewById(R.id.result_text);
 
         dbButton.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +95,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        addNewRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AddDbRecord.class));
             }
         });
 
